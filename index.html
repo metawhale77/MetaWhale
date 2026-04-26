@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>meta-whale.com</title>
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-card: #0a0a0a;
+            --border: #161616;
+            --text-main: #ffffff;
+            --text-dim: #777777;
+            --token-purple: #8a2be2;
+        }
+
+        body {
+            background-color: var(--bg-pure);
+            color: var(--text-main);
+            font-family: sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* View Control */
+        .view { display: none; min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; }
+        .view.active { display: block; }
+
+        /* Common Elements */
+        .header-ui {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .list-row {
+            padding: 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-ui {
+            background: var(--bg-card);
+            margin: 12px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        /* Sidebar Custom */
+        #menu-overlay {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 100%; height: 100%;
+            background: var(--bg-pure);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        /* Level Grid */
+        .level-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 12px;
+        }
+
+        .level-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .purple-circle {
+            width: 50px; height: 50px;
+            border: 2px solid var(--token-purple);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 15px auto;
+            color: var(--token-purple);
+        }
+
+        .btn-black {
+            background: #111;
+            color: white;
+            border: 1px solid #222;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+        }
+
+        .back-btn { font-size: 22px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="v-home" class="view active">
+        <div class="header-ui">
+            <span style="font-weight: bold;">Home</span>
+            <div style="background:#111; padding:4px 10px; border-radius:15px; font-size:12px; border:1px solid #222;">0.00 IGT 👜</div>
+            <div onclick="toggleMenu(true)" style="cursor:pointer">☰</div>
+        </div>
+        <div style="display:flex; padding:10px; gap:5px;">
+            <div style="flex:1; text-align:center; padding:8px; color:var(--text-dim)">Explore</div>
+            <div style="flex:1; text-align:center; padding:8px; border-bottom:2px solid white;">Dashboard</div>
+        </div>
+        <div class="card-ui">
+            <div style="color:var(--text-dim); font-size:12px; margin-bottom:10px;">Services</div>
+            <div class="list-row" style="padding:10px 0" onclick="showV('v-ts')"><span>T&S</span> <span>&rsaquo;</span></div>
+            <div class="list-row" style="padding:10px 0"><span>W-DEX</span> <span>&rsaquo;</span></div>
+        </div>
+        <div class="card-ui">
+            <div style="color:var(--text-dim); font-size:12px;">Total income</div>
+            <div style="font-size:30px; font-weight:bold; margin:5px 0;">$0</div>
+        </div>
+        <div class="purple-circle" style="width:60px; height:60px;">$</div>
+        <p style="text-align:center; color:var(--text-dim); font-size:12px;">You don't have any active bonuses yet</p>
+    </div>
+
+    <div id="menu-overlay">
+        <div class="header-ui">
+            <div style="display:flex; align-items:center; gap:10px;" onclick="showV('v-profile'); toggleMenu(false)">
+                <div style="width:35px; height:35px; background:#222; border-radius:50%;"></div>
+                <div><div style="font-size:14px;">My profile</div><div style="font-size:11px; color:var(--text-dim)">pZyVxAsNcs</div></div>
+            </div>
+            <div onclick="toggleMenu(false)" style="font-size:30px;">&times;</div>
+        </div>
+        <div class="list-row" onclick="showV('v-wallet'); toggleMenu(false)"><span>Wallet</span></div>
+        <div class="list-row" onclick="showV('v-notif'); toggleMenu(false)"><span>Notification</span></div>
+        <div class="list-row" onclick="showV('v-home'); toggleMenu(false)"><span>Home</span></div>
+        <div class="list-row" onclick="showV('v-support'); toggleMenu(false)"><span>Support</span></div>
+        <div class="list-row"><span>Settings</span></div>
+    </div>
+
+    <div id="v-profile" class="view">
+        <div class="header-ui">
+            <span class="back-btn" onclick="showV('v-home')">←</span>
+            <span>Profile</span>
+            <span>Edit</span>
+        </div>
+        <div style="height:150px; background: linear-gradient(to bottom, #333, #000);"></div>
+        <div style="padding:15px;">
+            <h2 style="margin:0;">Chut ka bhukha</h2>
+            <p style="color:var(--text-dim); font-size:13px;">Ek baat meri sun lo tum kuch bi krlo hamara atank K...</p>
+            <div style="display:flex; gap:20px; margin:20px 0;">
+                <div><b>0</b><br><small style="color:var(--text-dim)">FOLLOWERS</small></div>
+                <div><b>0</b><br><small style="color:var(--text-dim)">FOLLOWING</small></div>
+                <div><b>0</b><br><small style="color:var(--text-dim)">TEAM</small></div>
+            </div>
+            <div class="list-row"><span>Profile link</span></div>
+            <div class="list-row"><span>WID: pZyVxAsNcs</span></div>
+            <button class="btn-black" style="margin-top:20px; color:red;">Logout</button>
+        </div>
+    </div>
+
+    <div id="v-wallet" class="view">
+        <div class="header-ui"><span class="back-btn" onclick="showV('v-home')">←</span><span>Wallet</span><span style="color:red">Disconnect</span></div>
+        <div style="text-align:center; padding:40px 0;">
+            <div style="color:var(--text-dim)">Total Balance</div>
+            <div style="font-size:45px; font-weight:bold;">$0.09</div>
+        </div>
+        <div class="level-grid">
+            <div class="level-box">Transfer</div>
+            <div class="level-box">W-DEX</div>
+            <div class="level-box">Hold hHC</div>
+            <div class="level-box" onclick="showV('v-vesting')">Vesting</div>
+        </div>
+    </div>
+
+    <div id="v-vesting" class="view">
+        <div class="header-ui"><span class="back-btn" onclick="showV('v-wallet')">←</span><span>Vesting</span><span>&times;</span></div>
+        <div class="card-ui">
+            <div class="list-row"><span>CES BLOCKED</span><span>77.66</span></div>
+            <div class="list-row"><span>CES LOCKED</span><span>623.66</span></div>
+        </div>
+    </div>
+
+    <div id="v-notif" class="view">
+        <div class="header-ui"><span class="back-btn" onclick="showV('v-home')">←</span><span>Notification</span><span>Mark as read</span></div>
+        <div style="text-align:center; margin-top:100px; color:var(--text-dim)">new notifications not found...</div>
+    </div>
+
+    <div id="v-support" class="view">
+        <div class="header-ui"><span class="back-btn" onclick="showV('v-home')">←</span><span>Help</span><span>&times;</span></div>
+        <div style="padding:20px;">
+            <h1>Welcome to the help center</h1>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-black">Ask a question</button>
+                <button class="btn-black" style="background:var(--token-purple)">Chat with AI</button>
+            </div>
+            <p style="margin-top:30px; color:var(--text-dim)">Chose category</p>
+            <div class="list-row"><span>Meta Whale</span></div>
+            <div class="list-row"><span>Whalebit (CES)</span></div>
+            <div class="list-row"><span>Wallet</span></div>
+        </div>
+    </div>
+
+    <div id="v-ts" class="view">
+        <div class="header-ui"><span class="back-btn" onclick="showV('v-home')">←</span><span>T&S</span></div>
+        <div style="padding:15px;">
+            <h2 style="margin:0;">T&S</h2>
+            <p style="font-size:12px; color:var(--text-dim)">Tactics And Strategy is a decentralized gaming program...</p>
+            <div class="level-grid">
+                <div class="level-box"><small>LEVEL 1</small><br><b>9.0 IGT</b><br><button class="btn-black">Go to</button></div>
+                <div class="level-box"><small>LEVEL 2</small><br><b>16.2 IGT</b><br><button class="btn-black">Go to</button></div>
+                <div class="level-box"><small>LEVEL 7</small><br><b>340.1 IGT</b><br><button class="btn-black" style="opacity:0.5">Activate</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showV(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function toggleMenu(open) {
+            document.getElementById('menu-overlay').style.right = open ? '0' : '-100%';
+        }
+    </script>
+</body>
+              </html>
+      
